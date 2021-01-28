@@ -1,0 +1,10 @@
+[package]
+name = "maxb-rs"
+version = "0.1.0"
+authors = ["evgeni.nabokov@gmail.com <mAxFV5ko>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.3"
