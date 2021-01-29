@@ -3,9 +3,9 @@ mod tests;
 fn main() {
 }
 
-use std::cmp::Ordering;
-
 pub fn binary_search(nums: Vec<i32>, target: i32) -> i32 {
+    use std::cmp::Ordering;
+
     if nums.is_empty() { return -1; }
 
     let mut low: i32 = 0;
@@ -23,9 +23,9 @@ pub fn binary_search(nums: Vec<i32>, target: i32) -> i32 {
     -1
 }
 
-use rand::Rng;
-
 pub fn shuffle(nums: &mut Vec<i32>) {
+    use rand::Rng;
+
     if nums.len() < 2 { return; }
 
     let mut rng = rand::thread_rng();
@@ -77,9 +77,9 @@ pub fn rotate(nums: &mut Vec<i32>, mut k: i32) {
     nums[k as usize..].reverse();
 }
 
-use std::cmp::max;
-
 pub fn max_sub_array(nums: Vec<i32>) -> i32 {
+    use std::cmp::max;
+
     let mut max_sum = nums[0];
     let mut curr_sum = nums[0];
     for n in nums.into_iter().skip(1) {
@@ -87,4 +87,18 @@ pub fn max_sub_array(nums: Vec<i32>) -> i32 {
         max_sum = max(max_sum, curr_sum);
     }
     max_sum
+}
+
+pub fn max_profit(prices: Vec<i32>) -> i32 {
+    use std::cmp::{max, min};
+
+    let mut max_profit = 0;
+    let mut buy = prices[0];
+
+    for p in prices.into_iter().skip(1) {
+        max_profit = max(max_profit, p - buy);
+        buy = min(buy, p);
+    }
+
+    max_profit
 }

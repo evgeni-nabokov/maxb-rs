@@ -66,3 +66,14 @@ fn max_sub_array_test() {
         assert_eq!(max_sub_array(case.0), case.1);
     }
 }
+
+#[test]
+fn max_profit_test() {
+    let test_cases = vec![
+        (vec![7, 1, 5, 3, 6, 4], 5),
+        (vec![7, 6, 4, 3, 1], 0),
+    ];
+    for case in test_cases {
+        assert_eq!(max_profit(case.0), case.1);
+    }
+}
