@@ -5,7 +5,7 @@ fn main() {
 
 use std::cmp::Ordering;
 
-pub fn binary_search(nums: &[i32], target: i32) -> i32 {
+pub fn binary_search(nums: Vec<i32>, target: i32) -> i32 {
     if nums.is_empty() { return -1; }
 
     let mut low: i32 = 0;
@@ -51,7 +51,7 @@ pub fn get_prefix_sum(nums: &[i32]) -> Vec<i32> {
     res
 }
 
-pub fn pivot_index(nums: &[i32]) -> i32 {
+pub fn pivot_index(nums: Vec<i32>) -> i32 {
     if nums.len() < 3 { return -1; }
 
     let prefix_sum = get_prefix_sum(nums);
