@@ -54,7 +54,7 @@ pub fn get_prefix_sum(nums: &[i32]) -> Vec<i32> {
 pub fn pivot_index(nums: Vec<i32>) -> i32 {
     if nums.len() < 3 { return -1; }
 
-    let prefix_sum = get_prefix_sum(nums);
+    let prefix_sum = get_prefix_sum(&nums);
     let total_sum = prefix_sum.last().unwrap();
 
     for i in 1..prefix_sum.len() - 1 {
@@ -75,4 +75,16 @@ pub fn rotate(nums: &mut Vec<i32>, mut k: i32) {
     nums.reverse();
     nums[..k as usize].reverse();
     nums[k as usize..].reverse();
+}
+
+use std::cmp::max;
+
+pub fn max_sub_array(nums: Vec<i32>) -> i32 {
+    let mut max_sum = nums[0];
+    let mut curr_sum = nums[0];
+    for n in nums.into_iter().skip(1) {
+        curr_sum = max(curr_sum + n, n);
+        max_sum = max(max_sum, curr_sum);
+    }
+    max_sum
 }

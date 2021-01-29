@@ -54,3 +54,15 @@ fn rotate_test() {
         assert_eq!(case.0, case.2);
     }
 }
+
+#[test]
+fn max_sub_array_test() {
+    let test_cases = vec![
+        (vec![1, 2, 3, 4], 10),
+        (vec![1, -2, 3, -4], 3),
+        (vec![10, -2, 3, -4], 11),
+    ];
+    for case in test_cases {
+        assert_eq!(max_sub_array(case.0), case.1);
+    }
+}
