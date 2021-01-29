@@ -10,7 +10,7 @@ fn binary_search_test() {
         (vec![1, 20, 32, 39, 40, 45, 68, 77, 93], 40, 4),
     ];
     for case in test_cases {
-        assert_eq!(binary_search(&case.0, case.1), case.2);
+        assert_eq!(binary_search(case.0, case.1), case.2);
     }
 }
 
@@ -36,7 +36,7 @@ fn pivot_index_test() {
         (vec![-1, 5, 2, -4, 8], 2),
     ];
     for case in test_cases {
-        assert_eq!(pivot_index(&case.0), case.1);
+        assert_eq!(pivot_index(case.0), case.1);
     }
 }
 
