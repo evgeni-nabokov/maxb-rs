@@ -189,3 +189,28 @@ pub fn binary_search_rotated_v2(nums: Vec<i32>, target: i32) -> i32 {
 
     -1
 }
+
+// 977. Squares of a Sorted Array.
+// https://leetcode.com/problems/squares-of-a-sorted-array/
+// Solution with O(N) time and O(N) space.
+pub fn sorted_squares(nums: Vec<i32>) -> Vec<i32> {
+    if nums.is_empty() { return nums; }
+
+    let mut res = vec![0; nums.len()];
+    let mut low = 0;
+    let mut high = nums.len() - 1;
+
+    let mut i = high as i32;
+    while low <= high {
+        if nums[low].abs() >= nums[high].abs() {
+            res[i as usize] = nums[low].pow(2);
+            low += 1;
+        } else {
+            res[i as usize] = nums[high].pow(2);
+            high -= 1;
+        }
+        i -= 1;
+    }
+
+    res
+}

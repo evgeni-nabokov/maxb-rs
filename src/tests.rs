@@ -105,3 +105,21 @@ fn binary_search_rotated_v2_test() {
         assert_eq!(binary_search_rotated_v2(case.0, case.1), case.2);
     }
 }
+
+fn get_sorted_squares_test_cases() -> Vec<(Vec<i32>, Vec<i32>)> {
+    vec![
+        (vec![], vec![]),
+        (vec![-1], vec![1]),
+        (vec![-2, 0], vec![0, 4]),
+        (vec![1, 2], vec![1, 4]),
+        (vec![-4, -1, 0, 3, 10], vec![0, 1, 9, 16, 100]),
+        (vec![-7, -3, 2, 3, 11], vec![4, 9, 9, 49, 121]),
+    ]
+}
+
+#[test]
+fn sorted_squares_test() {
+    for case in get_sorted_squares_test_cases() {
+        assert_eq!(sorted_squares(case.0), case.1);
+    }
+}
