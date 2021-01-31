@@ -1,4 +1,8 @@
 mod tests;
+mod list_node;
+mod linked_list;
+
+use list_node::ListNode;
 
 fn main() {
 }
@@ -257,4 +261,23 @@ pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
     }
 
     vec![start, end]
+}
+
+// 206. Reverse Linked List.
+// https://leetcode.com/problems/reverse-linked-list/
+// Solution with O(N) time and O(1) space.
+pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    fn solve(mut prev_node: Option<Box<ListNode>>, mut curr_node: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        if let Some(mut curr_node_inner) = curr_node {
+            let next_node = curr_node_inner.next.take();
+            curr_node_inner.next = prev_node.take();
+            prev_node = Some(curr_node_inner);
+            curr_node = next_node;
+            solve(prev_node, curr_node)
+        } else {
+            prev_node
+        }
+    }
+
+    solve(None, head)
 }

@@ -1,4 +1,6 @@
 use super::*;
+use linked_list::LinkedList;
+
 
 #[test]
 fn binary_search_test() {
@@ -134,5 +136,20 @@ fn search_range_test() {
     ];
     for case in test_cases {
         assert_eq!(search_range(case.0, case.1), case.2);
+    }
+}
+
+fn get_reverse_list_test_cases() -> Vec<(Vec<i32>, Vec<i32>)> {
+    vec![
+        (vec![], vec![]),
+        (vec![1], vec![1]),
+        (vec![1, 2, 3], vec![3, 2, 1]),
+    ]
+}
+
+#[test]
+fn reverse_list_test() {
+    for case in get_reverse_list_test_cases() {
+        assert_eq!(reverse_list(ListNode::from_slice(&case.0)).to_vec(), case.1);
     }
 }
