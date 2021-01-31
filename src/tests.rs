@@ -123,3 +123,16 @@ fn sorted_squares_test() {
         assert_eq!(sorted_squares(case.0), case.1);
     }
 }
+
+#[test]
+fn search_range_test() {
+    let test_cases = vec![
+        (vec![], 1, vec![-1, -1]),
+        (vec![1], 1, vec![0, 0]),
+        (vec![1, 1], 1, vec![0, 1]),
+        (vec![1, 2, 3, 3, 5], 3, vec![2, 3]),
+    ];
+    for case in test_cases {
+        assert_eq!(search_range(case.0, case.1), case.2);
+    }
+}

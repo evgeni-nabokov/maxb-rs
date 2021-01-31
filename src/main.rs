@@ -214,3 +214,47 @@ pub fn sorted_squares(nums: Vec<i32>) -> Vec<i32> {
 
     res
 }
+
+// 34. Find First and Last Position of Element in Sorted Array.
+// https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+// Solution with O(logN) time and O(1) space.
+pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
+    use std::cmp::Ordering;
+
+    if nums.is_empty() { return vec![-1, -1]; }
+
+    let mut low: i32 = 0;
+    let mut high: i32 = nums.len() as i32 - 1;
+
+    let mut start = -1;
+    while low <= high {
+        let mid = low + (high - low) / 2;
+        match nums[mid as usize].cmp(&target) {
+            Ordering::Equal => {
+                start = mid;
+                high = mid - 1;
+            },
+            Ordering::Less => low = mid + 1,
+            Ordering::Greater => high = mid - 1,
+        }
+    }
+
+    if start == -1 { return vec![-1, -1]; }
+    let mut end = start;
+
+    low = start + 1;
+    high = nums.len() as i32 - 1;
+    while low <= high {
+        let mid = low + (high - low) / 2;
+        match nums[mid as usize].cmp(&target) {
+            Ordering::Equal => {
+                end = mid;
+                low = mid + 1;
+            },
+            Ordering::Less => low = mid + 1,
+            Ordering::Greater => high = mid - 1,
+        }
+    }
+
+    vec![start, end]
+}
