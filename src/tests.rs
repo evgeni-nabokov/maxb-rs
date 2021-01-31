@@ -1,6 +1,6 @@
 use super::*;
 use linked_list::LinkedList;
-
+use min_stack::MinStack;
 
 #[test]
 fn binary_search_test() {
@@ -152,4 +152,16 @@ fn reverse_list_test() {
     for case in get_reverse_list_test_cases() {
         assert_eq!(reverse_list(ListNode::from_slice(&case.0)).to_vec(), case.1);
     }
+}
+
+#[test]
+fn min_stack_test() {
+    let mut obj = MinStack::new();
+    obj.push(-2);
+    obj.push(0);
+    obj.push(-3);
+    assert_eq!(obj.get_min(), -3);
+    obj.pop();
+    assert_eq!(obj.top(), 0);
+    assert_eq!(obj.get_min(), -2);
 }

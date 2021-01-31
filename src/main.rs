@@ -1,6 +1,7 @@
 mod tests;
 mod list_node;
 mod linked_list;
+mod min_stack;
 
 use list_node::ListNode;
 
