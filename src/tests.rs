@@ -77,3 +77,31 @@ fn max_profit_test() {
         assert_eq!(max_profit(case.0), case.1);
     }
 }
+
+fn get_binary_search_rotated_test_cases() -> Vec<(Vec<i32>, i32, i32)> {
+    vec![
+        (vec![], 1, -1),
+        (vec![1], 1, 0),
+        (vec![5, 6, 0, 1, 2, 3, 4], 6, 1),
+        (vec![5, 6, 0, 1, 2, 3, 4], 2, 4),
+        (vec![5, 6, 0, 1, 2, 3, 4], 0, 2),
+        (vec![1, 3], 1, 0),
+        (vec![1, 3], 3, 1),
+        (vec![3, 1], 3, 0),
+        (vec![3, 1], 1, 1),
+    ]
+}
+
+#[test]
+fn binary_search_rotated_test() {
+    for case in get_binary_search_rotated_test_cases() {
+        assert_eq!(binary_search_rotated(case.0, case.1), case.2);
+    }
+}
+
+#[test]
+fn binary_search_rotated_v2_test() {
+    for case in get_binary_search_rotated_test_cases() {
+        assert_eq!(binary_search_rotated_v2(case.0, case.1), case.2);
+    }
+}

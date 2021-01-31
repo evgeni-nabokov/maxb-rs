@@ -102,3 +102,90 @@ pub fn max_profit(prices: Vec<i32>) -> i32 {
 
     max_profit
 }
+
+// 33. Search in Rotated Sorted Array.
+// https://leetcode.com/problems/search-in-rotated-sorted-array/
+// Solution with O(logN) time and O(1) space.
+pub fn binary_search_rotated(nums: Vec<i32>, target: i32) -> i32 {
+    if nums.is_empty() { return -1; }
+    if nums.len() == 1 {
+        return if nums[0] == target { 0 } else { -1 };
+    }
+
+    use std::cmp::Ordering;
+
+    fn search_smallest(nums: &[i32]) -> usize {
+        let mut low = 0;
+        let mut high = nums.len() - 1;
+        if nums[low] < nums[high] { return 0; }
+
+        let mut mid = 0;
+        while low <= high {
+            mid = low + (high - low) / 2;
+            if nums[mid] > nums[mid + 1] {
+                break;
+            } else {
+                if nums[mid] < nums[low] {
+                    high = mid - 1;
+                } else {
+                    low = mid + 1;
+                }
+            }
+        }
+        mid + 1
+    }
+
+    let smallest = search_smallest(&nums);
+    let mut low: i32 = 0;
+    let mut high: i32 = nums.len() as i32 - 1;
+
+    if target == nums[smallest] {
+        return smallest as i32;
+    }
+
+    if smallest != 0 {
+        if target >= nums[0] {
+            high = smallest as i32 - 1;
+        } else {
+            low = smallest as i32 + 1
+        }
+    }
+
+    while low <= high {
+        let mid = low + (high - low) / 2;
+        match nums[mid as usize].cmp(&target) {
+            Ordering::Equal => return mid,
+            Ordering::Greater => high = mid - 1,
+            Ordering::Less => low = mid + 1,
+        }
+    }
+
+    -1
+}
+
+// Solution with O(logN) time and O(1) space.
+pub fn binary_search_rotated_v2(nums: Vec<i32>, target: i32) -> i32 {
+    let mut low: i32 = 0;
+    let mut high: i32 = nums.len() as i32 - 1;
+
+    while low <= high {
+        let mid = low + (high - low) / 2;
+        if target == nums[mid as usize] { return mid; }
+
+        if nums[mid as usize] >= nums[low as usize] {
+            if target >= nums[low as usize] && target < nums[mid as usize] {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        } else {
+            if target > nums[mid as usize] && target <= nums[high as usize] {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+    }
+
+    -1
+}
