@@ -2,6 +2,7 @@ mod tests;
 mod list_node;
 mod linked_list;
 mod min_stack;
+mod my_queue;
 
 use list_node::ListNode;
 

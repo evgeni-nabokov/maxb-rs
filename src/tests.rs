@@ -1,6 +1,7 @@
 use super::*;
 use linked_list::LinkedList;
 use min_stack::MinStack;
+use crate::my_queue::MyQueue;
 
 #[test]
 fn binary_search_test() {
@@ -164,4 +165,15 @@ fn min_stack_test() {
     obj.pop();
     assert_eq!(obj.top(), 0);
     assert_eq!(obj.get_min(), -2);
+}
+
+#[test]
+fn my_queue_test() {
+    let mut obj = MyQueue::new();
+    obj.push(-2);
+    obj.push(0);
+    obj.push(-3);
+    assert_eq!(obj.pop(), -2);
+    assert_eq!(obj.peek(), 0);
+    assert_eq!(obj.empty(), false);
 }
