@@ -177,3 +177,16 @@ fn my_queue_test() {
     assert_eq!(obj.peek(), 0);
     assert_eq!(obj.empty(), false);
 }
+
+#[test]
+fn remove_duplicates_test() {
+    let test_cases = vec![
+        ("aaaabcdeeef", 2, "bcdef"),
+        ("abcd", 2, "abcd"),
+        ("deeedbbcccbdaa", 3, "aa"),
+        ("pbbcggttciiippooaais", 2, "ps"),
+    ];
+    for case in test_cases {
+        assert_eq!(remove_duplicates(case.0.to_string(), case.1), case.2.to_string());
+    }
+}

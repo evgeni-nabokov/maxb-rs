@@ -283,3 +283,28 @@ pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 
     solve(None, head)
 }
+
+// 1209. Remove All Adjacent Duplicates in String II
+// https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/
+// Solution with O(N) time and O(N) space.
+pub fn remove_duplicates(s: String, k: i32) -> String {
+    let mut chars: Vec<char> = s.chars().collect();
+    let l = chars.len();
+    let mut count: Vec<i32> = vec![0; l];
+    let mut fast = 0;
+    let mut slow: i32 = 0;
+    while fast < l {
+        chars[slow as usize] = chars[fast];
+        count[slow as usize] = if slow > 0 && chars[slow as usize - 1] == chars[fast] {
+            count[slow as usize - 1] + 1
+        } else {
+            1
+        };
+        if count[slow as usize] == k {
+            slow -= k;
+        }
+        slow += 1;
+        fast += 1;
+    }
+    chars[..slow as usize].into_iter().collect()
+}
