@@ -308,3 +308,38 @@ pub fn remove_duplicates(s: String, k: i32) -> String {
     }
     chars[..slow as usize].into_iter().collect()
 }
+
+pub fn quick_sort(nums: &mut Vec<i32>) {
+    if nums.len() < 2 { return; }
+
+    fn sort(nums: &mut Vec<i32>, low: usize, high: usize) {
+        if low >= high { return; }
+        let pivot_index = partition(nums, low, high);
+        sort(nums, low, std::cmp::max(1, pivot_index) - 1);
+        sort(nums, pivot_index + 1, high);
+    }
+
+    fn partition(nums: &mut Vec<i32>, low: usize, high: usize) -> usize {
+        let pivot = nums[low];
+        let mut i = low + 1;
+        let mut j = high;
+        loop {
+            while nums[i] < pivot {
+                if i == high { break; }
+                i += 1;
+            }
+            while nums[j] > pivot {
+                if i == low { break; }
+                j -= 1;
+            }
+            if i >= j { break; }
+            nums.swap(i, j);
+        }
+        nums.swap(low, j);
+        j
+    }
+
+    // Shuffle vector to improve performance.
+    shuffle(nums);
+    sort(nums, 0, nums.len() - 1);
+}
