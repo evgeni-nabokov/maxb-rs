@@ -345,3 +345,23 @@ pub fn quick_sort(nums: &mut Vec<i32>) {
     shuffle(nums);
     sort(nums, 0, nums.len() - 1);
 }
+
+pub fn matrix_dfs(grid: Vec<Vec<i32>>) {
+    if grid.is_empty() { return; }
+
+    let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
+
+    fn dfs(grid: &Vec<Vec<i32>>, row: isize, col: isize, visited: &mut Vec<Vec<bool>>, dirs: &[(isize, isize)]) {
+        if row < 0 || row as usize >= grid.len()
+            || col < 0 || col as usize > grid[row as usize].len()
+            || visited[row as usize][col as usize] { return; }
+
+        visited[row as usize][col as usize] = true;
+        for i in 0..dirs.len() {
+            dfs(grid, row + dirs[i].0, col + dirs[i].1, visited, dirs);
+        }
+    }
+
+    let mut visited: Vec<Vec<bool>> = vec![vec![false; grid[0].len()]; grid.len()];
+    dfs(&grid, 0, 0, &mut visited, &dirs);
+}
