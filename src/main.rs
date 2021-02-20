@@ -334,6 +334,8 @@ pub fn quick_sort(nums: &mut Vec<i32>) {
             }
             if i >= j { break; }
             nums.swap(i, j);
+            i += 1;
+            j -= 1;
         }
         nums.swap(low, j);
         j

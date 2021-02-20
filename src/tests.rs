@@ -196,15 +196,16 @@ fn quick_sort_test() {
     let test_cases = vec![
         vec![],
         vec![1],
+        vec![1, 1],
         vec![1, 2],
         vec![2, 1],
         vec![11, 18, 1, 20, 5, 12, 5, 16, 21, 9, 13, 17, 3, 24, 15, 19],
+        vec![11, 11, 18, 1, 20, 5, 12, 5, 16, 21, 9, 13, 17, 3, 24, 15, 19, 11],
     ];
     for mut case in test_cases {
         let mut expected = case.clone();
         expected.sort_unstable();
         quick_sort(&mut case);
-        // println!("{:?}", case);
         assert_eq!(case, expected);
     }
 }
