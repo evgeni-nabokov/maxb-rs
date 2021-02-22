@@ -347,52 +347,55 @@ pub fn quick_sort(nums: &mut Vec<i32>) {
     sort(nums, 0, nums.len() - 1);
 }
 
-pub fn matrix_dfs(grid: Vec<Vec<i32>>) {
-    if grid.is_empty() { return; }
+pub fn matrix_dfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
+    if grid.is_empty() { return vec![]; }
 
-    let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
-
-    fn dfs(grid: &Vec<Vec<i32>>, row: isize, col: isize, visited: &mut Vec<Vec<bool>>, dirs: &[(isize, isize)]) {
+    fn dfs(grid: &Vec<Vec<i32>>, row: isize, col: isize, visited: &mut Vec<Vec<bool>>, dirs: &[(isize, isize)],
+        items: &mut Vec<i32>) {
         if row < 0 || row as usize >= grid.len()
-            || col < 0 || col as usize > grid[row as usize].len()
+            || col < 0 || col as usize >= grid[row as usize].len()
             || visited[row as usize][col as usize] { return; }
 
         visited[row as usize][col as usize] = true;
-        println!("({}, {})={}", row, col, grid[row as usize][col as usize]);
+        items.push(grid[row as usize][col as usize]);
 
         for i in 0..dirs.len() {
-            dfs(grid, row + dirs[i].0, col + dirs[i].1, visited, dirs);
+            dfs(grid, row + dirs[i].0, col + dirs[i].1, visited, dirs, items);
         }
     }
 
+    let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
     let mut visited: Vec<Vec<bool>> = vec![vec![false; grid[0].len()]; grid.len()];
-    dfs(&grid, 0, 0, &mut visited, &dirs);
+    let mut result = Vec::with_capacity(grid.len() * grid[0].len());
+    dfs(&grid, 0, 0, &mut visited, &dirs, &mut result);
+
+    result
 }
 
-pub fn matrix_bfs(grid: Vec<Vec<i32>>) {
-    if grid.is_empty() { return; }
+pub fn matrix_bfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
+    if grid.is_empty() { return vec![]; }
 
     let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
     let mut visited = vec![vec![false; grid[0].len()]; grid.len()];
-    let mut queue = VecDeque::new();
+    let mut queue: VecDeque<(i32, i32)> = VecDeque::new();
 
     visited[0][0] = true;
     queue.push_front((0, 0));
-    println!("({}, {})={}", 0, 0, grid[0][0]);
+    let mut result = Vec::with_capacity(grid.len() * grid[0].len());
+    result.push(grid[0][0]);
 
     while !queue.is_empty() {
-        let (mut row, mut col) = queue.pop_back().unwrap();
+        let (curr_row, curr_col) = queue.pop_back().unwrap();
         for i in 0..dirs.len() {
-            row += dir[i].0;
-            col += dir[i].1;
-            if row >= 0 && row < grid.len() && col >= 0 && col < grid[row as usize].len()
+            let row = curr_row + dirs[i].0;
+            let col = curr_col + dirs[i].1;
+            if row >= 0 && (row as usize) < grid.len() && col >= 0 && (col as usize) < grid[row as usize].len()
                 && !visited[row as usize][col as usize] {
                 visited[row as usize][col as usize] = true;
                 queue.push_front((row, col));
-
+                result.push(grid[row as usize][col as usize]);
             }
-            println!("({}, {})={}", 0, 0, grid[row as usize][col as usize]);
         }
     }
-
+    result
 }
