@@ -5,6 +5,7 @@ mod min_stack;
 mod my_queue;
 
 use list_node::ListNode;
+use std::collections::VecDeque;
 
 fn main() {
 }
@@ -357,6 +358,8 @@ pub fn matrix_dfs(grid: Vec<Vec<i32>>) {
             || visited[row as usize][col as usize] { return; }
 
         visited[row as usize][col as usize] = true;
+        println!("({}, {})={}", row, col, grid[row as usize][col as usize]);
+
         for i in 0..dirs.len() {
             dfs(grid, row + dirs[i].0, col + dirs[i].1, visited, dirs);
         }
@@ -364,4 +367,32 @@ pub fn matrix_dfs(grid: Vec<Vec<i32>>) {
 
     let mut visited: Vec<Vec<bool>> = vec![vec![false; grid[0].len()]; grid.len()];
     dfs(&grid, 0, 0, &mut visited, &dirs);
+}
+
+pub fn matrix_bfs(grid: Vec<Vec<i32>>) {
+    if grid.is_empty() { return; }
+
+    let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
+    let mut visited = vec![vec![false; grid[0].len()]; grid.len()];
+    let mut queue = VecDeque::new();
+
+    visited[0][0] = true;
+    queue.push_front((0, 0));
+    println!("({}, {})={}", 0, 0, grid[0][0]);
+
+    while !queue.is_empty() {
+        let (mut row, mut col) = queue.pop_back().unwrap();
+        for i in 0..dirs.len() {
+            row += dir[i].0;
+            col += dir[i].1;
+            if row >= 0 && row < grid.len() && col >= 0 && col < grid[row as usize].len()
+                && !visited[row as usize][col as usize] {
+                visited[row as usize][col as usize] = true;
+                queue.push_front((row, col));
+
+            }
+            println!("({}, {})={}", 0, 0, grid[row as usize][col as usize]);
+        }
+    }
+
 }
