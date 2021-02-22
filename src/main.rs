@@ -353,7 +353,7 @@ pub fn matrix_dfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
     fn dfs(grid: &Vec<Vec<i32>>, row: isize, col: isize, visited: &mut Vec<Vec<bool>>, dirs: &[(isize, isize)],
         items: &mut Vec<i32>) {
         if row < 0 || row as usize >= grid.len()
-            || col < 0 || col as usize >= grid[row as usize].len()
+            || col < 0 || col as usize >= grid[0].len()
             || visited[row as usize][col as usize] { return; }
 
         visited[row as usize][col as usize] = true;
@@ -389,10 +389,38 @@ pub fn matrix_bfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
         for i in 0..dirs.len() {
             let row = curr_row + dirs[i].0;
             let col = curr_col + dirs[i].1;
-            if row >= 0 && (row as usize) < grid.len() && col >= 0 && (col as usize) < grid[row as usize].len()
+            if row >= 0 && (row as usize) < grid.len() && col >= 0 && (col as usize) < grid[0].len()
                 && !visited[row as usize][col as usize] {
                 visited[row as usize][col as usize] = true;
                 queue.push_front((row, col));
+                result.push(grid[row as usize][col as usize]);
+            }
+        }
+    }
+    result
+}
+
+pub fn matrix_bfs_v2(grid: Vec<Vec<i32>>) -> Vec<i32> {
+    if grid.is_empty() { return vec![]; }
+
+    let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
+    let mut visited = vec![vec![false; grid[0].len()]; grid.len()];
+    let mut queue: VecDeque<usize> = VecDeque::new();
+
+    visited[0][0] = true;
+    queue.push_front(0);
+    let mut result = Vec::with_capacity(grid.len() * grid[0].len());
+    result.push(grid[0][0]);
+
+    while !queue.is_empty() {
+        let idx = queue.pop_back().unwrap();
+        for i in 0..dirs.len() {
+            let row = (idx / grid.len()) as i32 + dirs[i].0;
+            let col = (idx % grid[0].len()) as i32 + dirs[i].1;
+            if row >= 0 && (row as usize) < grid.len() && col >= 0 && (col as usize) < grid[0].len()
+                && !visited[row as usize][col as usize] {
+                visited[row as usize][col as usize] = true;
+                queue.push_front(row as usize * grid.len() + col as usize);
                 result.push(grid[row as usize][col as usize]);
             }
         }

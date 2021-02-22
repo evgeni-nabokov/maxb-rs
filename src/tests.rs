@@ -235,3 +235,16 @@ fn matrix_bfs_test() {
         assert_eq!(matrix_bfs(case.0), case.1);
     }
 }
+
+#[test]
+fn matrix_bfs_v2_test() {
+    let test_cases = vec![
+        (vec![], vec![]),
+        (vec![vec![1]], vec![1]),
+        (vec![vec![1, 2], vec![3, 4]], vec![1, 2, 3, 4]),
+        (vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]], vec![1, 2, 4, 3, 5, 7, 6, 8, 9]),
+    ];
+    for case in test_cases {
+        assert_eq!(matrix_bfs_v2(case.0), case.1);
+    }
+}
