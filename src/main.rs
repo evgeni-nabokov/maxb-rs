@@ -3,9 +3,11 @@ mod list_node;
 mod linked_list;
 mod min_stack;
 mod my_queue;
+mod graph;
 
 use list_node::ListNode;
 use std::collections::VecDeque;
+use crate::graph::Graph;
 
 fn main() {
 }
@@ -393,34 +395,6 @@ pub fn matrix_bfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
                 && !visited[row as usize][col as usize] {
                 visited[row as usize][col as usize] = true;
                 queue.push_front((row, col));
-                result.push(grid[row as usize][col as usize]);
-            }
-        }
-    }
-    result
-}
-
-pub fn matrix_bfs_v2(grid: Vec<Vec<i32>>) -> Vec<i32> {
-    if grid.is_empty() { return vec![]; }
-
-    let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
-    let mut visited = vec![vec![false; grid[0].len()]; grid.len()];
-    let mut queue: VecDeque<usize> = VecDeque::new();
-
-    visited[0][0] = true;
-    queue.push_front(0);
-    let mut result = Vec::with_capacity(grid.len() * grid[0].len());
-    result.push(grid[0][0]);
-
-    while !queue.is_empty() {
-        let idx = queue.pop_back().unwrap();
-        for i in 0..dirs.len() {
-            let row = (idx / grid.len()) as i32 + dirs[i].0;
-            let col = (idx % grid[0].len()) as i32 + dirs[i].1;
-            if row >= 0 && (row as usize) < grid.len() && col >= 0 && (col as usize) < grid[0].len()
-                && !visited[row as usize][col as usize] {
-                visited[row as usize][col as usize] = true;
-                queue.push_front(row as usize * grid.len() + col as usize);
                 result.push(grid[row as usize][col as usize]);
             }
         }
