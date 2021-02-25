@@ -248,3 +248,15 @@ fn matrix_bfs_v2_test() {
         assert_eq!(matrix_bfs_v2(case.0), case.1);
     }
 }
+
+#[test]
+fn graph_bfs_test() {
+    let test_cases = vec![
+        (vec![(0, 1), (1, 0)], 0, vec![0, 1]),
+        (vec![(0, 1), (1, 0), (0, 2), (2, 0), (0, 5), (5, 0), (1, 2), (2, 1), (2, 3), (3, 2), (2, 4),
+              (4, 2), (3, 4), (4, 3), (3, 5), (5, 3)], 0, vec![0, 1, 2, 5, 3, 4]),
+    ];
+    for case in test_cases {
+        assert_eq!(graph_bfs(Graph::from_vec(case.0), case.1), case.2);
+    }
+}
