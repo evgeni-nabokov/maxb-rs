@@ -1,6 +1,7 @@
 use super::*;
 use linked_list::LinkedList;
 use min_stack::MinStack;
+use crate::max_binary_heap::MaxBinaryHeap;
 use crate::my_queue::MyQueue;
 
 #[test]
@@ -179,16 +180,19 @@ fn my_queue_test() {
 }
 
 #[test]
-fn remove_duplicates_test() {
-    let test_cases = vec![
-        ("aaaabcdeeef", 2, "bcdef"),
-        ("abcd", 2, "abcd"),
-        ("deeedbbcccbdaa", 3, "aa"),
-        ("pbbcggttciiippooaais", 2, "ps"),
-    ];
-    for case in test_cases {
-        assert_eq!(remove_duplicates(case.0.to_string(), case.1), case.2.to_string());
-    }
+fn max_binary_heap_test() {
+    let mut heap = MaxBinaryHeap::new();
+    assert_eq!(heap.is_empty(), true);
+    assert_eq!(heap.pop(), None);
+    heap.push(1);
+    assert_eq!(heap.is_empty(), false);
+    heap.push(8);
+    heap.push(5);
+    assert_eq!(heap.pop(), Some(8));
+    assert_eq!(heap.pop(), Some(5));
+    assert_eq!(heap.pop(), Some(1));
+    assert_eq!(heap.pop(), None);
+    assert_eq!(heap.is_empty(), true);
 }
 
 #[test]
