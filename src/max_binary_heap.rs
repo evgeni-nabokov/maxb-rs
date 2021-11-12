@@ -35,6 +35,13 @@ impl MaxBinaryHeap {
         Some(val)
     }
 
+    pub fn peek(&self) -> Option<&i32> {
+        if self.is_empty() {
+            return None;
+        }
+        Some(&self.items[1])
+    }
+
     pub fn is_empty(&self) -> bool {
         self.items.len() < 2
     }

@@ -183,11 +183,14 @@ fn my_queue_test() {
 fn max_binary_heap_test() {
     let mut heap = MaxBinaryHeap::new();
     assert_eq!(heap.is_empty(), true);
+    assert_eq!(heap.peek(), None);
     assert_eq!(heap.pop(), None);
     heap.push(1);
     assert_eq!(heap.is_empty(), false);
+    assert_eq!(heap.peek(), Some(&1));
     heap.push(8);
     heap.push(5);
+    assert_eq!(heap.peek(), Some(&8));
     assert_eq!(heap.pop(), Some(8));
     assert_eq!(heap.pop(), Some(5));
     assert_eq!(heap.pop(), Some(1));
