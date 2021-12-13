@@ -4,17 +4,14 @@ pub struct MaxBinaryHeap {
 
 impl MaxBinaryHeap {
     pub fn new() -> Self {
-        MaxBinaryHeap {
-            items: vec![0],
-        }
+        MaxBinaryHeap { items: vec![0] }
     }
 
+    #[allow(dead_code)]
     pub fn with_capacity(capacity: usize) -> Self {
         let mut vec = Vec::with_capacity(capacity + 1);
         vec.push(0);
-        MaxBinaryHeap {
-            items: vec,
-        }
+        MaxBinaryHeap { items: vec }
     }
 
     pub fn push(&mut self, val: i32) {
