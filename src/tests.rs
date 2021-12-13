@@ -1,8 +1,8 @@
 use super::*;
-use linked_list::LinkedList;
-use min_stack::MinStack;
 use crate::max_binary_heap::MaxBinaryHeap;
 use crate::my_queue::MyQueue;
+use linked_list::LinkedList;
+use min_stack::MinStack;
 
 #[test]
 fn binary_search_test() {
@@ -20,9 +20,7 @@ fn binary_search_test() {
 
 #[test]
 fn shuffle_test() {
-    let test_cases = vec![
-        vec![1, 2, 3, 4, 5, 6, 7, 8, 9],
-    ];
+    let test_cases = vec![vec![1, 2, 3, 4, 5, 6, 7, 8, 9]];
     for mut case in test_cases {
         let original = case.clone();
         shuffle(&mut case);
@@ -73,10 +71,7 @@ fn max_sub_array_test() {
 
 #[test]
 fn max_profit_test() {
-    let test_cases = vec![
-        (vec![7, 1, 5, 3, 6, 4], 5),
-        (vec![7, 6, 4, 3, 1], 0),
-    ];
+    let test_cases = vec![(vec![7, 1, 5, 3, 6, 4], 5), (vec![7, 6, 4, 3, 1], 0)];
     for case in test_cases {
         assert_eq!(max_profit(case.0), case.1);
     }
@@ -207,7 +202,9 @@ fn quick_sort_test() {
         vec![1, 2],
         vec![2, 1],
         vec![11, 18, 1, 20, 5, 12, 5, 16, 21, 9, 13, 17, 3, 24, 15, 19],
-        vec![11, 11, 18, 1, 20, 5, 12, 5, 16, 21, 9, 13, 17, 3, 24, 15, 19, 11],
+        vec![
+            11, 11, 18, 1, 20, 5, 12, 5, 16, 21, 9, 13, 17, 3, 24, 15, 19, 11,
+        ],
     ];
     for mut case in test_cases {
         let mut expected = case.clone();
@@ -223,7 +220,10 @@ fn matrix_dfs_test() {
         (vec![], vec![]),
         (vec![vec![1]], vec![1]),
         (vec![vec![1, 2], vec![3, 4]], vec![1, 2, 4, 3]),
-        (vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]], vec![1, 2, 3, 6, 9, 8, 7, 4, 5]),
+        (
+            vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]],
+            vec![1, 2, 3, 6, 9, 8, 7, 4, 5],
+        ),
     ];
     for case in test_cases {
         assert_eq!(matrix_dfs(case.0), case.1);
@@ -236,7 +236,10 @@ fn matrix_bfs_test() {
         (vec![], vec![]),
         (vec![vec![1]], vec![1]),
         (vec![vec![1, 2], vec![3, 4]], vec![1, 2, 3, 4]),
-        (vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]], vec![1, 2, 4, 3, 5, 7, 6, 8, 9]),
+        (
+            vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]],
+            vec![1, 2, 4, 3, 5, 7, 6, 8, 9],
+        ),
     ];
     for case in test_cases {
         assert_eq!(matrix_bfs(case.0), case.1);
@@ -249,7 +252,10 @@ fn matrix_bfs_v2_test() {
         (vec![], vec![]),
         (vec![vec![1]], vec![1]),
         (vec![vec![1, 2], vec![3, 4]], vec![1, 2, 3, 4]),
-        (vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]], vec![1, 2, 4, 3, 5, 7, 6, 8, 9]),
+        (
+            vec![vec![1, 2, 3], vec![4, 5, 6], vec![7, 8, 9]],
+            vec![1, 2, 4, 3, 5, 7, 6, 8, 9],
+        ),
     ];
     for case in test_cases {
         assert_eq!(matrix_bfs_v2(case.0), case.1);
@@ -260,8 +266,28 @@ fn matrix_bfs_v2_test() {
 fn graph_bfs_test() {
     let test_cases = vec![
         (vec![(0, 1), (1, 0)], 0, vec![0, 1]),
-        (vec![(0, 1), (1, 0), (0, 2), (2, 0), (0, 5), (5, 0), (1, 2), (2, 1), (2, 3), (3, 2), (2, 4),
-              (4, 2), (3, 4), (4, 3), (3, 5), (5, 3)], 0, vec![0, 1, 2, 5, 3, 4]),
+        (
+            vec![
+                (0, 1),
+                (1, 0),
+                (0, 2),
+                (2, 0),
+                (0, 5),
+                (5, 0),
+                (1, 2),
+                (2, 1),
+                (2, 3),
+                (3, 2),
+                (2, 4),
+                (4, 2),
+                (3, 4),
+                (4, 3),
+                (3, 5),
+                (5, 3),
+            ],
+            0,
+            vec![0, 1, 2, 5, 3, 4],
+        ),
     ];
     for case in test_cases {
         assert_eq!(graph_bfs(Graph::from_vec(case.0), case.1), case.2);

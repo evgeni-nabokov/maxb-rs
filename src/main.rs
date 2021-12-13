@@ -1,22 +1,23 @@
-mod tests;
-mod list_node;
+mod graph;
 mod linked_list;
+mod list_node;
+mod max_binary_heap;
 mod min_stack;
 mod my_queue;
-mod max_binary_heap;
-mod graph;
+mod tests;
 
+use crate::graph::Graph;
 use list_node::ListNode;
 use std::collections::VecDeque;
-use crate::graph::Graph;
 
-fn main() {
-}
+fn main() {}
 
 pub fn binary_search(nums: Vec<i32>, target: i32) -> i32 {
     use std::cmp::Ordering;
 
-    if nums.is_empty() { return -1; }
+    if nums.is_empty() {
+        return -1;
+    }
 
     let mut low: i32 = 0;
     let mut high: i32 = nums.len() as i32 - 1;
@@ -36,7 +37,9 @@ pub fn binary_search(nums: Vec<i32>, target: i32) -> i32 {
 pub fn shuffle(nums: &mut Vec<i32>) {
     use rand::Rng;
 
-    if nums.len() < 2 { return; }
+    if nums.len() < 2 {
+        return;
+    }
 
     let mut rng = rand::thread_rng();
 
@@ -49,7 +52,9 @@ pub fn shuffle(nums: &mut Vec<i32>) {
 }
 
 pub fn get_prefix_sum(nums: &[i32]) -> Vec<i32> {
-    if nums.is_empty() { return Vec::new(); }
+    if nums.is_empty() {
+        return Vec::new();
+    }
 
     let mut res = Vec::with_capacity(nums.len());
     res.push(nums[0]);
@@ -62,7 +67,9 @@ pub fn get_prefix_sum(nums: &[i32]) -> Vec<i32> {
 }
 
 pub fn pivot_index(nums: Vec<i32>) -> i32 {
-    if nums.len() < 3 { return -1; }
+    if nums.len() < 3 {
+        return -1;
+    }
 
     let prefix_sum = get_prefix_sum(&nums);
     let total_sum = prefix_sum.last().unwrap();
@@ -77,10 +84,14 @@ pub fn pivot_index(nums: Vec<i32>) -> i32 {
 }
 
 pub fn rotate(nums: &mut Vec<i32>, mut k: i32) {
-    if nums.is_empty() || k <= 0 { return; }
+    if nums.is_empty() || k <= 0 {
+        return;
+    }
 
     k = k % nums.len() as i32;
-    if k == 0 { return; }
+    if k == 0 {
+        return;
+    }
 
     nums.reverse();
     nums[..k as usize].reverse();
@@ -117,7 +128,9 @@ pub fn max_profit(prices: Vec<i32>) -> i32 {
 // https://leetcode.com/problems/search-in-rotated-sorted-array/
 // Solution with O(logN) time and O(1) space.
 pub fn binary_search_rotated(nums: Vec<i32>, target: i32) -> i32 {
-    if nums.is_empty() { return -1; }
+    if nums.is_empty() {
+        return -1;
+    }
     if nums.len() == 1 {
         return if nums[0] == target { 0 } else { -1 };
     }
@@ -127,7 +140,9 @@ pub fn binary_search_rotated(nums: Vec<i32>, target: i32) -> i32 {
     fn search_smallest(nums: &[i32]) -> usize {
         let mut low = 0;
         let mut high = nums.len() - 1;
-        if nums[low] < nums[high] { return 0; }
+        if nums[low] < nums[high] {
+            return 0;
+        }
 
         let mut mid = 0;
         while low <= high {
@@ -180,7 +195,9 @@ pub fn binary_search_rotated_v2(nums: Vec<i32>, target: i32) -> i32 {
 
     while low <= high {
         let mid = low + (high - low) / 2;
-        if target == nums[mid as usize] { return mid; }
+        if target == nums[mid as usize] {
+            return mid;
+        }
 
         if nums[mid as usize] >= nums[low as usize] {
             if target >= nums[low as usize] && target < nums[mid as usize] {
@@ -204,7 +221,9 @@ pub fn binary_search_rotated_v2(nums: Vec<i32>, target: i32) -> i32 {
 // https://leetcode.com/problems/squares-of-a-sorted-array/
 // Solution with O(N) time and O(N) space.
 pub fn sorted_squares(nums: Vec<i32>) -> Vec<i32> {
-    if nums.is_empty() { return nums; }
+    if nums.is_empty() {
+        return nums;
+    }
 
     let mut res = vec![0; nums.len()];
     let mut low = 0;
@@ -231,7 +250,9 @@ pub fn sorted_squares(nums: Vec<i32>) -> Vec<i32> {
 pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
     use std::cmp::Ordering;
 
-    if nums.is_empty() { return vec![-1, -1]; }
+    if nums.is_empty() {
+        return vec![-1, -1];
+    }
 
     let mut low: i32 = 0;
     let mut high: i32 = nums.len() as i32 - 1;
@@ -243,13 +264,15 @@ pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
             Ordering::Equal => {
                 start = mid;
                 high = mid - 1;
-            },
+            }
             Ordering::Less => low = mid + 1,
             Ordering::Greater => high = mid - 1,
         }
     }
 
-    if start == -1 { return vec![-1, -1]; }
+    if start == -1 {
+        return vec![-1, -1];
+    }
     let mut end = start;
 
     low = start + 1;
@@ -260,7 +283,7 @@ pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
             Ordering::Equal => {
                 end = mid;
                 low = mid + 1;
-            },
+            }
             Ordering::Less => low = mid + 1,
             Ordering::Greater => high = mid - 1,
         }
@@ -273,7 +296,10 @@ pub fn search_range(nums: Vec<i32>, target: i32) -> Vec<i32> {
 // https://leetcode.com/problems/reverse-linked-list/
 // Solution with O(N) time and O(1) space.
 pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-    fn solve(mut prev_node: Option<Box<ListNode>>, mut curr_node: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    fn solve(
+        mut prev_node: Option<Box<ListNode>>,
+        mut curr_node: Option<Box<ListNode>>,
+    ) -> Option<Box<ListNode>> {
         if let Some(mut curr_node_inner) = curr_node {
             let next_node = curr_node_inner.next.take();
             curr_node_inner.next = prev_node.take();
@@ -289,10 +315,14 @@ pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 }
 
 pub fn quick_sort(nums: &mut Vec<i32>) {
-    if nums.len() < 2 { return; }
+    if nums.len() < 2 {
+        return;
+    }
 
     fn sort(nums: &mut Vec<i32>, low: usize, high: usize) {
-        if low >= high { return; }
+        if low >= high {
+            return;
+        }
         let pivot_index = partition(nums, low, high);
         sort(nums, low, std::cmp::max(1, pivot_index) - 1);
         sort(nums, pivot_index + 1, high);
@@ -304,14 +334,20 @@ pub fn quick_sort(nums: &mut Vec<i32>) {
         let mut j = high;
         loop {
             while nums[i] < pivot {
-                if i == high { break; }
+                if i == high {
+                    break;
+                }
                 i += 1;
             }
             while nums[j] > pivot {
-                if i == low { break; }
+                if i == low {
+                    break;
+                }
                 j -= 1;
             }
-            if i >= j { break; }
+            if i >= j {
+                break;
+            }
             nums.swap(i, j);
             i += 1;
             j -= 1;
@@ -326,13 +362,26 @@ pub fn quick_sort(nums: &mut Vec<i32>) {
 }
 
 pub fn matrix_dfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
-    if grid.is_empty() { return vec![]; }
+    if grid.is_empty() {
+        return vec![];
+    }
 
-    fn dfs(grid: &Vec<Vec<i32>>, row: isize, col: isize, visited: &mut Vec<Vec<bool>>, dirs: &[(isize, isize)],
-        items: &mut Vec<i32>) {
-        if row < 0 || row as usize >= grid.len()
-            || col < 0 || col as usize >= grid[0].len()
-            || visited[row as usize][col as usize] { return; }
+    fn dfs(
+        grid: &Vec<Vec<i32>>,
+        row: isize,
+        col: isize,
+        visited: &mut Vec<Vec<bool>>,
+        dirs: &[(isize, isize)],
+        items: &mut Vec<i32>,
+    ) {
+        if row < 0
+            || row as usize >= grid.len()
+            || col < 0
+            || col as usize >= grid[0].len()
+            || visited[row as usize][col as usize]
+        {
+            return;
+        }
 
         visited[row as usize][col as usize] = true;
         items.push(grid[row as usize][col as usize]);
@@ -351,7 +400,9 @@ pub fn matrix_dfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
 }
 
 pub fn matrix_bfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
-    if grid.is_empty() { return vec![]; }
+    if grid.is_empty() {
+        return vec![];
+    }
 
     let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
     let mut visited = vec![vec![false; grid[0].len()]; grid.len()];
@@ -367,8 +418,12 @@ pub fn matrix_bfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
         for i in 0..dirs.len() {
             let row = curr_row + dirs[i].0;
             let col = curr_col + dirs[i].1;
-            if row >= 0 && (row as usize) < grid.len() && col >= 0 && (col as usize) < grid[0].len()
-                && !visited[row as usize][col as usize] {
+            if row >= 0
+                && (row as usize) < grid.len()
+                && col >= 0
+                && (col as usize) < grid[0].len()
+                && !visited[row as usize][col as usize]
+            {
                 visited[row as usize][col as usize] = true;
                 queue.push_front((row, col));
                 result.push(grid[row as usize][col as usize]);
@@ -379,7 +434,9 @@ pub fn matrix_bfs(grid: Vec<Vec<i32>>) -> Vec<i32> {
 }
 
 pub fn matrix_bfs_v2(grid: Vec<Vec<i32>>) -> Vec<i32> {
-    if grid.is_empty() { return vec![]; }
+    if grid.is_empty() {
+        return vec![];
+    }
 
     let dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)];
     let mut visited = vec![vec![false; grid[0].len()]; grid.len()];
@@ -395,8 +452,12 @@ pub fn matrix_bfs_v2(grid: Vec<Vec<i32>>) -> Vec<i32> {
         for i in 0..dirs.len() {
             let row = (idx / grid.len()) as i32 + dirs[i].0;
             let col = (idx % grid[0].len()) as i32 + dirs[i].1;
-            if row >= 0 && (row as usize) < grid.len() && col >= 0 && (col as usize) < grid[0].len()
-                && !visited[row as usize][col as usize] {
+            if row >= 0
+                && (row as usize) < grid.len()
+                && col >= 0
+                && (col as usize) < grid[0].len()
+                && !visited[row as usize][col as usize]
+            {
                 visited[row as usize][col as usize] = true;
                 queue.push_front(row as usize * grid.len() + col as usize);
                 result.push(grid[row as usize][col as usize]);
@@ -418,7 +479,9 @@ pub fn graph_bfs(graph: Graph, start: usize) -> Vec<usize> {
         let v = queue.pop_back().unwrap();
         if let Some(vec) = graph.get_adj_vertices(v) {
             for av in vec {
-                if visited[av] { continue; }
+                if visited[av] {
+                    continue;
+                }
                 visited[av] = true;
                 queue.push_front(av);
                 res.push(av);
