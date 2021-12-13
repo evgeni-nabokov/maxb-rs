@@ -491,3 +491,32 @@ pub fn graph_bfs(graph: Graph, start: usize) -> Vec<usize> {
 
     res
 }
+
+pub fn knapsack(values: Vec<i32>, weights: Vec<i32>, capacity: i32) -> i32 {
+    fn solve(
+        values: &[i32],
+        weights: &[i32],
+        capacity: i32,
+        i: usize,
+        memo: &mut [Vec<i32>],
+    ) -> i32 {
+        if i == values.len() || capacity == 0 {
+            return 0;
+        }
+
+        if memo[i][capacity as usize] != -1 {
+            return memo[i][capacity as usize];
+        }
+
+        let mut res = solve(values, weights, capacity, i + 1, memo);
+        if weights[i] <= capacity {
+            res = res.max(values[i] + solve(values, weights, capacity - weights[i], i + 1, memo));
+        }
+
+        memo[i][capacity as usize] = res;
+        res
+    }
+
+    let mut memo = vec![vec![-1; capacity as usize + 1]; values.len()];
+    solve(&values, &weights, capacity, 0, &mut memo)
+}

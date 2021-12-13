@@ -293,3 +293,15 @@ fn graph_bfs_test() {
         assert_eq!(graph_bfs(Graph::from_vec(case.0), case.1), case.2);
     }
 }
+
+#[test]
+fn knapsack_test() {
+    let test_cases = vec![
+        (vec![10, 15, 40], vec![1, 2, 3], 6, 65),
+        (vec![10, 15, 40, 50], vec![1, 2, 3, 4], 6, 65),
+        (vec![60, 100, 120], vec![10, 20, 30], 50, 220),
+    ];
+    for case in test_cases {
+        assert_eq!(knapsack(case.0, case.1, case.2), case.3);
+    }
+}
